@@ -1,0 +1,46 @@
+import tkinter as tink
+import random
+
+secretNumber =  random.randint(1,100)
+
+def checkGuess():
+    try:
+        guess = int(entry.get())
+        if guess < secretNumber:
+            resultLabel.config(text="Too low")
+        elif guess > secretNumber:
+            resultLabel.config(text="Too High")
+        else:
+            resultLabel.config(text="Correct Number Well done!")
+            playAgain_Button.pack(pady=10)
+    except ValueError:
+        resultLabel.config(text="Please Enter A Valid Number :)")
+
+def playAgain ():
+    global secretNumber
+    secretNumber = random.randint(1,100)
+    entry.delete(0, tink.END)
+    resultLabel.config(text="")
+    playAgain_Button.pack_forget()
+
+window = tink.Tk ()
+window.title("Number Guessing Game")
+window.geometry("300x200")
+
+promptLabel = tink.Label(window, text ="Guess a number between 1 and 100:")
+promptLabel.pack(pady=10)
+
+entry = tink.Entry(window)
+entry.pack()
+
+guessButton = tink.Button(window, text="Sumbit Guess", command=checkGuess)
+guessButton.pack(pady=5)
+
+resultLabel = tink.Label(window, text="")
+resultLabel.pack()
+
+playAgain_Button = tink.Button(window, text="Play Again", command=playAgain)
+
+window.mainloop()
+
+
